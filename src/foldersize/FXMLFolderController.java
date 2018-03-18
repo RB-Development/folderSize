@@ -16,6 +16,7 @@ import scan.scan_disc;
 import java.util.*;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
 
 /**
  *
@@ -35,6 +36,12 @@ public class FXMLFolderController implements Initializable {
         // TODO
         scan_disc FolderList = new scan_disc();
         FolderList.scan_all();
+        TreeItem<String> Test = new TreeItem("Hallo");
+        TreeItem<String> Test2 = new TreeItem ("Hallo2");
+        
+        TreeItem<String> Root = new TreeItem ("root");
+        Root.getChildren().setAll(Test,Test2);
+        col_ordner.setCellValueFactory();
     }    
     public class scan_disc {
     
