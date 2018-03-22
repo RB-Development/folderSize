@@ -14,8 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import scan.scan_disc;
 import java.util.*;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.control.*;
 
 /**
  *
@@ -26,15 +29,24 @@ public class FXMLFolderController implements Initializable {
     @FXML
     private TreeTableView<String> tableview;
     @FXML
-    private TreeTableColumn<File,String> col_ordner;
-    @FXML
-    private TreeTableColumn<File,Number> col_groesse;
+    private TreeTableColumn<String,String> col_ordner;
+    //@FXML
+    //private TreeTableColumn<File,Number> col_groesse;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         scan_disc FolderList = new scan_disc();
         FolderList.scan_all();
+        TreeItem<String> Test1= new TreeItem<>("Test1");
+        TreeItem<String> Test2 = new TreeItem<>("Test2");
+        TreeItem<String> root = new TreeItem<>("root");
+        root.getChildren().setAll(Test1,Test2);
+        root.setExpanded(true);
+        col_ordner.setCellValueFactory((CellDataFeatures<String,String> p) -> 
+            new ReadOnlyStringWrapper(p.getValue().getValue())); 
+        tableview.setShowRoot(true);
+        tableview.setRoot(root);
     }    
     public class scan_disc {
     
