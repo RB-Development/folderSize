@@ -37,7 +37,6 @@ public class FXMLFolderController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         scan_disc FolderList = new scan_disc();
-        FolderList.scan_all();
         TreeItem<String> Test1= new TreeItem<>("Test1");
         TreeItem<String> Test2 = new TreeItem<>("Test2");
         TreeItem<String> root = new TreeItem<>("root");
@@ -46,11 +45,12 @@ public class FXMLFolderController implements Initializable {
         col_ordner.setCellValueFactory((CellDataFeatures<String,String> p) -> 
             new ReadOnlyStringWrapper(p.getValue().getValue())); 
         tableview.setShowRoot(true);
+        FolderList.scan_all(root);
         tableview.setRoot(root);
     }    
     public class scan_disc {
     
-    public void scan_all()
+    public void scan_all(TreeItem root)
     {
         File f = new File("C:/");
         ArrayList<File> folderL = new ArrayList();
@@ -59,7 +59,8 @@ public class FXMLFolderController implements Initializable {
         {
             if (s.isDirectory())
                     {
-                       folderL.add(s);
+                       TreeItem<String> Temp = new TreeItem<>(s.getName());
+                       root.getChildren().add(Temp);
                     }
         }
     }
