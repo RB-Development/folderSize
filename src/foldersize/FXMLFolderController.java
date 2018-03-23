@@ -17,8 +17,8 @@ import java.util.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.*;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 
 /**
  *
@@ -53,7 +53,6 @@ public class FXMLFolderController implements Initializable {
     public void scan_all(TreeItem root)
     {
         File f = new File("C:/");
-        ArrayList<File> folderL = new ArrayList();
         File[] fileArray = f.listFiles();
         for (File s:fileArray)
         {
