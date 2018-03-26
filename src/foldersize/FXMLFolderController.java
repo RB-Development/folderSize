@@ -15,6 +15,10 @@ import javafx.scene.control.Label;
 import scan.scan_disc;
 import java.util.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.*;
@@ -30,17 +34,14 @@ public class FXMLFolderController implements Initializable {
     private TreeTableView<String> tableview;
     @FXML
     private TreeTableColumn<String,String> col_ordner;
-    //@FXML
-    //private TreeTableColumn<File,Number> col_groesse;
+    @FXML
+    private TreeTableColumn<Double,Double> col_groesse;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        scan_disc FolderList = new scan_disc();
-        TreeItem<String> Test1= new TreeItem<>("Test1");
-        TreeItem<String> Test2 = new TreeItem<>("Test2");
+        Folder FolderList = new Folder();
         TreeItem<String> root = new TreeItem<>("root");
-        root.getChildren().setAll(Test1,Test2);
         root.setExpanded(true);
         col_ordner.setCellValueFactory((CellDataFeatures<String,String> p) -> 
             new ReadOnlyStringWrapper(p.getValue().getValue())); 
@@ -48,7 +49,7 @@ public class FXMLFolderController implements Initializable {
         FolderList.scan_all(root);
         tableview.setRoot(root);
     }    
-    public class scan_disc {
+    public class Folder {
     
     public void scan_all(TreeItem root)
     {
@@ -63,6 +64,22 @@ public class FXMLFolderController implements Initializable {
                     }
         }
     }
+    private long getFolderSize(File folder) {
+    long length = 0;
+    File[] files = folder.listFiles();
+ 
+    int count = files.length;
+ 
+    for (int i = 0; i < count; i++) {
+        if (files[i].isFile()) {
+            length += files[i].length();
+        }
+        else {
+            length += getFolderSize(files[i]);
+        }
+    }
+    return length;
+}
     
 }
 }
