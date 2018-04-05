@@ -5,6 +5,8 @@
  */
 package scan;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author RB_Development
