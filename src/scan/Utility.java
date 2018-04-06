@@ -6,6 +6,7 @@
 package scan;
 
 import java.io.File;
+import javafx.event.EventType;
 import javafx.scene.control.TreeItem;
 import scan.Folder;
 
@@ -28,20 +29,22 @@ public class Utility {
                     {
                        Folder Fo = new Folder();
                        Fo.setName(s.getName());
-                       dTemp = this.getFolderSize(s);
-                       Fo.setGroesse(Math.floor((dTemp/1024/1024) *100)/100.0);
                        TreeItem<Folder> Temp = new TreeItem<>(Fo);
                        root.getChildren().add(Temp);
+                       dTemp = this.getFolderSize(s,root);
+                       Fo.setGroesse(Math.floor((dTemp/1024/1024) *100)/100.0);
+                       
                        size+=dTemp;   
                     }
         }
         return size;
     }
-    protected double getFolderSize(File folder) {
+    protected double getFolderSize(File folder, TreeItem root) {
+    double dTemp;
     double length = 0;
     File[] files;
     files = folder.listFiles();
- 
+    TreeItem child =new TreeItem();
     int count;
     if (files!= null)
     {
@@ -56,8 +59,20 @@ public class Utility {
         if (files[i].isFile()) {
             length += files[i].length();
         }
-        else {
-            length += getFolderSize(files[i]);
+        else 
+        {
+            dTemp=0;
+            Folder fTemp = new Folder();
+            fTemp.setName(files[i].getName());
+            TreeItem<Folder> Tree_Temp = new TreeItem(fTemp);
+            child=(TreeItem) root.getChildren().get(0);
+            if (child.valueProperty().getName().equals(folder))
+            {
+                System.out.println("Test");
+            }
+            dTemp=getFolderSize(files[i],Tree_Temp);
+            fTemp.setGroesse(Math.floor((dTemp/1024/1024) *100)/100.0);
+            length += dTemp;
         }
     }
     return length;
