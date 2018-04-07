@@ -76,9 +76,9 @@ public class FXMLFolderController implements Initializable {
         //col_groesse.setCellValueFactory((CellDataFeatures<Folder,Number> p) -> 
             //new SimpleDoubleProperty(p.getValue().getValue().getGroesse()));
             col_groesse.setCellValueFactory(new TreeItemPropertyValueFactory<>("groesse"));
-            col_groesse.setSortType(TreeTableColumn.SortType.DESCENDING);
         tableview.setShowRoot(true);
         
         tableview.setRoot(root);
+        col_ordner.setSortType(null);
     }
 }

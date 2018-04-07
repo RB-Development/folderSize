@@ -31,7 +31,7 @@ public class Utility {
                        Fo.setName(s.getName());
                        TreeItem<Folder> Temp = new TreeItem<>(Fo);
                        root.getChildren().add(Temp);
-                       dTemp = this.getFolderSize(s,root);
+                       dTemp = this.getFolderSize(s,Temp);
                        Fo.setGroesse(Math.floor((dTemp/1024/1024) *100)/100.0);
                        
                        size+=dTemp;   
@@ -44,7 +44,6 @@ public class Utility {
     double length = 0;
     File[] files;
     files = folder.listFiles();
-    TreeItem child =new TreeItem();
     int count;
     if (files!= null)
     {
@@ -65,11 +64,7 @@ public class Utility {
             Folder fTemp = new Folder();
             fTemp.setName(files[i].getName());
             TreeItem<Folder> Tree_Temp = new TreeItem(fTemp);
-            child=(TreeItem) root.getChildren().get(0);
-            if (child.valueProperty().getName().equals(folder))
-            {
-                System.out.println("Test");
-            }
+            root.getChildren().add(Tree_Temp);
             dTemp=getFolderSize(files[i],Tree_Temp);
             fTemp.setGroesse(Math.floor((dTemp/1024/1024) *100)/100.0);
             length += dTemp;
