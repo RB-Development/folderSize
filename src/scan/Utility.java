@@ -7,8 +7,12 @@ package scan;
 
 import java.io.File;
 import javafx.event.EventType;
+import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import scan.Folder;
+
 
 /**
  *
@@ -27,9 +31,11 @@ public class Utility {
             //&& !sTemp.contains(".Bin")
             if (s.isDirectory())
                     {
+                       Node folderIcon = new ImageView (new Image(getClass().getResourceAsStream("folder.jpg")));
                        Folder Fo = new Folder();
                        Fo.setName(s.getName());
-                       TreeItem<Folder> Temp = new TreeItem<>(Fo);
+                       TreeItem<Folder> Temp = new TreeItem<>(Fo,folderIcon);
+                       //Temp.setGraphic(folderIcon);
                        root.getChildren().add(Temp);
                        dTemp = this.getFolderSize(s,Temp);
                        Fo.setGroesse(Math.floor((dTemp/1024/1024) *100)/100.0);
@@ -60,10 +66,12 @@ public class Utility {
         }
         else 
         {
+            Node folderIcon = new ImageView (new Image(getClass().getResourceAsStream("folder.jpg")));
             dTemp=0;
             Folder fTemp = new Folder();
             fTemp.setName(files[i].getName());
-            TreeItem<Folder> Tree_Temp = new TreeItem(fTemp);
+            TreeItem<Folder> Tree_Temp = new TreeItem(fTemp,folderIcon);
+            //Tree_Temp.setGraphic(folderIcon);
             root.getChildren().add(Tree_Temp);
             dTemp=getFolderSize(files[i],Tree_Temp);
             fTemp.setGroesse(Math.floor((dTemp/1024/1024) *100)/100.0);

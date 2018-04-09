@@ -20,12 +20,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 import scan.Utility;
 import scan.Folder;
@@ -43,9 +46,9 @@ public class FXMLFolderController implements Initializable {
     @FXML
     private TreeTableColumn<Folder,Number> col_groesse;
     
+    Node discIcon = new ImageView (new Image(getClass().getResourceAsStream("disc.jpg")));
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         double size;
         File[] paths;
         paths = File.listRoots();
@@ -58,6 +61,7 @@ public class FXMLFolderController implements Initializable {
                 Folder Laufwerk = new Folder();
                 Laufwerk.setName(Disc.getAbsolutePath());
                 TreeItem<Folder> root_disc = new TreeItem<>(Laufwerk);
+                root_disc.setGraphic(discIcon);
                 size=0;
                 size=UT.scan_all(root_disc,Disc,size);
                 Laufwerk.setGroesse(Math.floor((size/1024/1024) *100)/100);
